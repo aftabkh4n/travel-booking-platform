@@ -1,0 +1,38 @@
+<div class="booking-list">
+  <div class="list-header">
+    <h2>All Bookings</h2>
+    <button (click)="loadBookings()" class="btn-refresh">Refresh</button>
+  </div>
+
+  <div *ngIf="loading" class="loading">Loading bookings...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div *ngIf="!loading && bookings.length === 0" class="empty">
+    No bookings found. Create your first booking above.
+  </div>
+
+  <div *ngFor="let booking of bookings" class="booking-card">
+    <div class="booking-header">
+      <span class="destination">{{ booking.destination }}</span>
+      <span class="status" [ngClass]="getStatusClass(booking.status)">{{ booking.status }}</span>
+    </div>
+    <div class="booking-details">
+      <p><strong>Customer:</strong> {{ booking.customerName }}</p>
+      <p><strong>Email:</strong> {{ booking.customerEmail }}</p>
+      <p><strong>Departure:</strong> {{ booking.departureDate | date:'mediumDate' }}</p>
+      <p><strong>Return:</strong> {{ booking.returnDate | date:'mediumDate' }}</p>
+      <p><strong>Passengers:</strong> {{ booking.passengers }}</p>
+      <p><strong>Total:</strong> ${{ booking.totalPrice }}</p>
+      <p *ngIf="booking.notes"><strong>Notes:</strong> {{ booking.notes }}</p>
+    </div>
+    <div class="booking-actions">
+      <button *ngIf="booking.status === 'Pending'"
+        (click)="updateStatus(booking.id!, 'Confirmed')"
+        class="btn-confirm">Confirm</button>
+      <button *ngIf="booking.status !== 'Cancelled' && booking.status !== 'Completed'"
+        (click)="updateStatus(booking.id!, 'Cancelled')"
+        class="btn-cancel">Cancel</button>
+      <button (click)="deleteBooking(booking.id!)" class="btn-delete">Delete</button>
+    </div>
+  </div>
+</div>

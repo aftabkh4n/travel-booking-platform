@@ -1,0 +1,9 @@
+bin/
+obj/
+appsettings.json
+appsettings.Development.json
+travel-booking-ui/node_modules/
+travel-booking-ui/.angular/
+*.user
+.vs/
+.idea/
