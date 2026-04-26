@@ -1,0 +1,6 @@
+@TravelBooking.Gateway_HostAddress = http://localhost:5177
+
+GET {{TravelBooking.Gateway_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
